@@ -23,9 +23,14 @@ class GradeWindow(QMainWindow):
         self.setMinimumSize(720, 680)
         self.resize(800, 720)
 
-        self.grades = []
 
         self.build_ui()
+
+        self.student_ids = []
+        self.original_grades = []
+        self.corrected_grades = []
+        self.selected_file = ''
+
 
     def build_ui(self) :
         central = QWidget()
@@ -98,28 +103,34 @@ class GradeWindow(QMainWindow):
         if not path:
             return
 
-        self.csv_path = path
-        self.grades.clear()
+        self.selected_file = path
+        self.student_ids.clear()
+        self.original_grades.clear()
+        self.corrected_grades.clear()
 
         with open(path, newline="", encoding="utf-8") as fh:
             reader = csv.reader(fh)
             next(reader, None)
             for row in reader:
                 if len(row) >= 2:
-                    student_id = row[0].strip()
+                    self.student_ids.append(row[0].strip())
                     grade = int(row[1].strip())
-                    self.grades.append((student_id, grade))
+                    self.original_grades.append(grade)
+                    self.corrected_grades.append(grade)
 
         self.spin.setValue(0)
         self.populate_table()
         self.status_label.setText(
-            f"Loaded: {os.path.basename(path)}  —  {len(self.grades)} students"
+            f"Loaded: {os.path.basename(path)}  —  {len(self.student_ids)} students"
         )
         self.update_btn.setEnabled(True)
 
-    def on_bonus_applied(self):        
-        if not self.grades:
+    def on_bonus_applied(self):
+        if not self.original_grades:
             return
+        bonus = self.spin.value()
+        for i in range(len(self.original_grades)):
+            self.corrected_grades[i] = min(self.original_grades[i] + bonus, 100)
         self.populate_table()
 
     def on_about(self):
@@ -127,38 +138,52 @@ class GradeWindow(QMainWindow):
         self.about_window.show()
 
     def on_update_file(self) -> None:
-        if not self.csv_path or not self.grades:
+        if not self.selected_file or not self.corrected_grades:
             return
 
-        bonus = self.spin.value()
-        corrected = [
-            (sid, orig, min(orig + bonus, 100)) for sid, orig in self.grades
-        ]
+        with open(self.selected_file, "r", newline="", encoding="utf-8") as fh:
+            reader = csv.reader(fh)
+            header = next(reader, None)
+            rows = list(reader)
 
-        with open(self.csv_path, "w", newline="", encoding="utf-8") as fh:
+        if header is None:
+            return
+
+        with open(self.selected_file, "w", newline="", encoding="utf-8") as fh:
             writer = csv.writer(fh)
-            writer.writerow(["ID", "Grade"])
-            for sid, _orig, corr in corrected:
-                writer.writerow([sid, corr])
+            writer.writerow(header)
+            for row, corrected_grade in zip(rows, self.corrected_grades):
+                if len(row) >= 2:
+                    row[1] = str(corrected_grade)
+                writer.writerow(row)
 
         try:
-            os.startfile(self.csv_path)
-        except AttributeError:
-            subprocess.Popen(["xdg-open", self.csv_path])
+            if sys.platform == "win32":
+                os.startfile(self.selected_file)
+            elif sys.platform == "darwin":
+                subprocess.Popen(["open", self.selected_file])
+            else:
+                subprocess.Popen(["xdg-open", self.selected_file])
+        except OSError:
+            QMessageBox.warning(
+                self,
+                "Warning",
+                "The file was updated, but it could not be opened automatically.",
+            )
+            return
 
         QMessageBox.information(
             self,
             "Success",
-            f"File updated with bonus of {bonus} points and opened in Excel.",
+            "The file was updated and opened.",
         )
 
     def populate_table(self):
-        bonus = self.spin.value()
         self.table.clearContents()
-
-        for row_idx, (sid, orig) in enumerate(self.grades):
-            corrected = min(orig + bonus, 100)
-
+        self.table.setRowCount(len(self.student_ids))
+        for row_idx, (sid, orig, corrected) in enumerate(
+            zip(self.student_ids, self.original_grades, self.corrected_grades)
+        ):
             id_item = QTableWidgetItem(sid)
             id_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             self.table.setItem(row_idx, 0, id_item)
