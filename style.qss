@@ -1,0 +1,183 @@
+/* ====== Global ====== */
+QWidget {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* ====== Main Window ====== */
+QMainWindow {
+    background-color: #1e1e2e;
+}
+
+/* ====== Labels ====== */
+QLabel {
+    color: #cdd6f4;
+    padding: 2px;
+}
+
+QLabel#titleLabel {
+    font-size: 22px;
+    font-weight: bold;
+    color: #89b4fa;
+    padding: 8px 0;
+}
+
+QLabel#statusLabel {
+    font-size: 13px;
+    color: #a6adc8;
+    padding: 4px 8px;
+    background-color: #181825;
+    border-radius: 6px;
+}
+
+/* ====== Buttons ====== */
+QPushButton {
+    background-color: #89b4fa;
+    color: #1e1e2e;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+QPushButton:hover {
+    background-color: #b4d0fb;
+}
+
+QPushButton:pressed {
+    background-color: #74a8f7;
+}
+
+QPushButton:disabled {
+    background-color: #45475a;
+    color: #6c7086;
+}
+
+QPushButton#updateButton {
+    background-color: #a6e3a1;
+    color: #1e1e2e;
+}
+
+QPushButton#updateButton:hover {
+    background-color: #c0f0bb;
+}
+
+QPushButton#updateButton:pressed {
+    background-color: #8bd885;
+}
+
+QPushButton#updateButton:disabled {
+    background-color: #45475a;
+    color: #6c7086;
+}
+
+QPushButton#aboutButton {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+}
+
+QPushButton#aboutButton:hover {
+    background-color: #dbbffa;
+}
+
+QPushButton#aboutButton:pressed {
+    background-color: #b48ceb;
+}
+
+/* ====== SpinBox ====== */
+QSpinBox {
+    background-color: #313244;
+    color: #cdd6f4;
+    border: 2px solid #45475a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 15px;
+    min-height: 20px;
+}
+
+QSpinBox:focus {
+    border: 2px solid #89b4fa;
+}
+
+QSpinBox::up-button, QSpinBox::down-button {
+    background-color: #45475a;
+    border: none;
+    width: 24px;
+    border-radius: 4px;
+}
+
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: #585b70;
+}
+
+/* ====== Table ====== */
+QTableWidget {
+    background-color: #181825;
+    alternate-background-color: #1e1e2e;
+    border: 2px solid #313244;
+    border-radius: 10px;
+    gridline-color: #313244;
+    selection-background-color: #45475a;
+    selection-color: #cdd6f4;
+    font-size: 13px;
+}
+
+QTableWidget::item {
+    padding: 6px 10px;
+}
+
+QHeaderView::section {
+    background-color: #313244;
+    color: #89b4fa;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 2px solid #89b4fa;
+}
+
+QTableCornerButton::section {
+    background-color: #313244;
+    border: none;
+}
+
+/* ====== Scrollbar ====== */
+QScrollBar:vertical {
+    background-color: #181825;
+    width: 10px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #45475a;
+    min-height: 30px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #585b70;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+/* ====== Group Box ====== */
+QGroupBox {
+    border: 2px solid #313244;
+    border-radius: 10px;
+    margin-top: 12px;
+    padding-top: 16px;
+    font-weight: bold;
+    color: #89b4fa;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 2px 12px;
+}
