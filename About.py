@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 
-PROJECT_ROOT = Path(__file__).parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent
 
 
 class AboutWindow(QWidget):

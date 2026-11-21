@@ -13,7 +13,7 @@ from PySide6.QtCore import Qt
 
 from About import AboutWindow
 
-HEADERS = ["ID", "Original Grades", "Corrected Grades"]
+HEADERS = ["ID", "Grades Original", "Corrected Grades"]
 
 
 class GradeWindow(QMainWindow): 
@@ -180,7 +180,7 @@ class GradeWindow(QMainWindow):
 
     def populate_table(self):
         self.table.clearContents()
-        self.table.setRowCount(len(self.student_ids))
+        self.table.setRowCount(50)
         for row_idx, (sid, orig, corrected) in enumerate(
             zip(self.student_ids, self.original_grades, self.corrected_grades)
         ):
