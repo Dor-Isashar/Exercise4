@@ -1,0 +1,72 @@
+QWidget {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+}
+
+QMainWindow {
+    background-color: #1e1e2e;
+}
+
+QLabel {
+    color: #cdd6f4;
+    padding: 2px;
+}
+
+QLabel#titleLabel {
+    font-size: 22px;
+    font-weight: bold;
+    color: #89b4fa;
+    padding: 8px 0;
+}
+
+QLabel#statusLabel {
+    font-size: 13px;
+    color: #a6adc8;
+    padding: 4px 8px;
+    background-color: #181825;
+    border-radius: 6px;
+}
+
+QPushButton {
+    background-color: #89b4fa;
+    color: #1e1e2e;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+QPushButton:hover {
+    background-color: #b4d0fb;
+}
+
+QPushButton:pressed {
+    background-color: #74a8f7;
+}
+
+QPushButton#aboutButton {
+    background-color: #cba6f7;
+}
+
+QPushButton#aboutButton:hover {
+    background-color: #dbbffa;
+}
+
+QGroupBox {
+    border: 2px solid #313244;
+    border-radius: 10px;
+    margin-top: 12px;
+    padding-top: 16px;
+    font-weight: bold;
+    color: #89b4fa;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 2px 12px;
+}
